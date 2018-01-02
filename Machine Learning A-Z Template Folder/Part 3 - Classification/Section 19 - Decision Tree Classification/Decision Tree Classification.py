@@ -1,4 +1,4 @@
-# K Nearest Neighbors
+  #  DECISION TREE CLASSIFICATION
 
 # Importing the libraries
 import numpy as np
@@ -11,7 +11,7 @@ import os
 
 # Using the os library
 os.getcwd()
-os.chdir('D:\\Work\\ML\\Super Data Science\\Machine Learning A-Z Template Folder\\Part 3 - Classification\\Section 15 - K-Nearest Neighbors (K-NN)\\K_Nearest_Neighbors')
+os.chdir('D:\\Work\\ML\\Super Data Science\\Machine Learning A-Z Template Folder\\Part 3 - Classification\\Section 19 - Decision Tree Classification\\Decision_Tree_Classification')
 
 
 # Dataset #
@@ -37,6 +37,11 @@ X_train, X_test, Y_train, Y_test = train_test_split(x,y,test_size = .25, random_
 # Feature Scaling #
 #=================#
 
+# Decision trees does not require feature scaling as the trees are not algorithms based on the Euclidean distance
+# Thus feature scaling is not required.
+# However in part of visualization the is a requirement in high resolution thus feature scaling would be useful as it would make process fast.
+
+
 # Using the standard scaler class from the preprocessing library of sklearn #
 #---------------------------------------------------------------------------#
 from sklearn.preprocessing import StandardScaler
@@ -52,18 +57,17 @@ Y_test = Sc_y.fit_transform(Y_test)
 '''
 
 # Classification Model #
-#==================#
+#======================#
 
-# Fitting the K Nearest Neighbours to the Dataset
-# Using the KNeighborsClassifier class from the neighbors library of sklearn #
+# Fitting the Decision tree to the Dataset
+# Using the DecisionTreeClassifier class from the tree library of sklearn #
 #---------------------------------------------------------------------------#
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 
-# Creating an object of Logistic Regreesion class and this object will be the classifier
-classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p =2)
-# n_neighbors is the number of neighbors, the default neighbors is 5
-# Using metric and p to choose the Euclidean distance
-# Setting metric = 'minkowski', p =2 for Euclidean distance
+# Creating an object of DecisionTreeClassifier class and this object will be the classifier
+classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+# Making Decision tree based on entropy, by setting the criterion parametet to entropy
+# It will make the splits more homogenious.
 
 # Using the fit method
 # The fit method is a tool of a function that will fit the regressor objectives into the trainning set.
@@ -119,7 +123,7 @@ plt.ylim(X2.min(), X2.max())
 for i,j in enumerate (np.unique(Y_set)):
     plt.scatter(X_set[Y_set == j, 0], X_set[Y_set == j,1],
                 c = ListedColormap(('red','green'))(i),label = j)
-plt.title('K-NN (Training set)')
+plt.title('Decision Tree (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
@@ -148,7 +152,7 @@ plt.ylim(X2.min(), X2.max())
 for i,j in enumerate (np.unique(Y_set)):
     plt.scatter(X_set[Y_set == j, 0], X_set[Y_set == j,1],
                 c = ListedColormap(('red','green'))(i),label = j)
-plt.title('K-NN (Test set)')
+plt.title('Decision Tree (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
